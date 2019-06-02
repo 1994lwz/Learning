@@ -1,0 +1,32 @@
+Python笔记
+
+1. Python解释器： CPython、IPython、PyPy、Jython、IronPython
+
+2. 在Mac和Linux上运行.py文件
+        在.py文件的第一行加上一个特殊的注释：#!/usr/bin/env python3
+        通过命令给hello.py以执行权限：chmod a+x hello.py
+
+3. 转义字符：\   制表符：\t
+   Python用r'' ''表示内部的字符串默认不转义
+        例如： print(r'\\\n\\')
+   Python允许用'''...'''的格式表示多行内容
+        例如： print('''line1
+                ...line2
+                ...line3''')
+        如果写成程序并存为.py文件，就是：
+            print('''line1
+                line2
+                line3''')
+                
+4. 浮点除法：/ 整数除法（地板除）：// 取余数：%
+
+5. 编码：
+        Python提供了ord()函数获取字符的整数表示，chr()函数把编码转换为对应的字符
+        encode()方法可以讲字符编码为指定的bytes, decode()方法可以将bytes解码为制定的字符
+        将CMD终端改为UTF-8格式
+            命令介绍：
+                chcp 65001   #换成utf-8代码页 
+                chcp 936       #换成默认的gbk 
+                chcp 437       #美国英语
+        保留两位小数： %.2f，保留两位整数： %2d，保留两位整数并在前面补零（零也算在其中）： %02d
+        %%用%来对%进行转义，使其显示成一个普通的字符

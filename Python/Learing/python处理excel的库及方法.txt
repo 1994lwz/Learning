@@ -1,0 +1,32 @@
+Python处理excel文件主要使用两个库：pyExcelerator 和 xlrd。两个库虽然都具备读写excel文件的功能，但显然是各有千秋，
+总结一下大概就是：pyExcelerator适合写入数据，而xlrd则适合读取数据。
+
+一、pyExcelerator库的介绍
+pyExcelerator读取数据不方便，因为它不提供表格的行数、列数、单元格数据类型等关键信息的访问接口，也不支持空数据的存在，
+因此你没法对它进行循环操作。
+它读取数据的机制是这样的：sheets=parse_xls(filename)  
+这个sheets返回的是一个列表，
+每一项是一张sheet的数据，
+每一项本身是一个二元组的数据结构（表名，单元格数据），
+单元格数据又是一个字典结构，key是单元格的索引(i,j)，value是单元格的数据。
+总结一下，如果你想获取此excel文件的第N张工作表的第i行第j列的单元格数据，则应该是这样：sheets[n][1][(i,j)]。
+而当要将数据写入excel时，我们就可以使用pyExcelerator来操作，很方便，一些操作示例：
+from pyExcelerator import *
+w=Workbook()  #创建工作簿
+ws=w.add_sheet('Sheet1')  #添加工作表
+ws.write(i,j,value)  #写入单元格 
+  
+w.save('book.xls')
+二、xlrd库的介绍
+相比之下，xlrd库读取数据则要方便的多，下面是一些使用范例：
+import xlrd
+wb = xlrd.open_workbook('book.xls')  #打开文件
+sh = wb.sheet_by_index(0) #获得工作表的方法1
+sh = wb.sheet_by_name('Sheet1') #获得工作表的方法2
+cellA1Value = sh.cell_value(i, j) #获得单元格数据
+columnValueList = sh.col_values(i) #获得一列的数据
+row_count=sh.nrows #获得行数
+col_count=sh.ncols  #获得列数
+但需要注意的是：xlrd库目前似乎还不支持excel2007版本，故使用时要注意处理的excel文件版本。
+
+http://www.2cto.com/kf/201208/145583.html   ##python excel 的相关操作
