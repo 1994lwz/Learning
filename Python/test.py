@@ -1,47 +1,29 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import math
+import time
+import threading
 
-def quadratic(a, b, c):
-    x1 = (-b + (math.sqrt(b * b - 4 * a * c))) / (2 * a)
-    x2 = (-b - (math.sqrt(b * b - 4 * a * c))) / (2 * a)
-    
-    return x1, x2
+balance = 0
+lock = threading.Lock()
 
-print('quadratic(2, 3, 2) =', quadratic(2, 3, 1))
-print('quadratic(1, 3, -4) =', quadratic(1, 3, -4))
+def change_it(n):
+    global balance
+    balance += n
+    balance -= n
 
-if quadratic(2, 3, 1) != (-0.5, -1.0):
-    print("测试失败")
-elif quadratic(1, 3, -4) != (1.0, -4.0):
-    print("测试失败")
-else:
-    print("测试成功")
+def run_thread(n):
+    for i in range(100000):
+        lock.acquire()
+        try:
+            change_it(n)
+        finally:
+            lock.release()
 
-def product(x, y = 1, *args):
-    m = x * y
-    #print(args)
-    for n in args:
-        m = m * n
-    return m
-    
-# 测试
-print('product(5) =', product(5))
-print('product(5, 6) =', product(5, 6))
-print('product(5, 6, 7) =', product(5, 6, 7))
-print('product(5, 6, 7, 9) =', product(5, 6, 7, 9))
-if product(5) != 5:
-    print('测试失败!')
-elif product(5, 6) != 30:
-    print('测试失败!')
-elif product(5, 6, 7) != 210:
-    print('测试失败!')
-elif product(5, 6, 7, 9) != 1890:
-    print('测试失败!')
-else:
-    try:
-        product()
-        print('测试失败!')
-    except TypeError:
-        print('测试成功!')
+t1 = threading.Thread(target=run_thread, args=(5,))
+t2 = threading.Thread(target=run_thread, args=(8,))
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+print(balance)

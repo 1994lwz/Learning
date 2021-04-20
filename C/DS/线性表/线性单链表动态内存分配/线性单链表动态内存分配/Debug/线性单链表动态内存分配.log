@@ -1,0 +1,6 @@
+﻿  Source.cpp
+c:\lwz\learning_lwz\learning\c\ds\线性表\线性单链表动态内存分配\线性单链表动态内存分配\source.cpp(44): warning C4244: '=': conversion from 'int' to 'ElemType', possible loss of data
+c:\lwz\learning_lwz\learning\c\ds\线性表\线性单链表动态内存分配\线性单链表动态内存分配\source.cpp(254): warning C4101: 'Lc': unreferenced local variable
+c:\lwz\learning_lwz\learning\c\ds\线性表\线性单链表动态内存分配\线性单链表动态内存分配\source.cpp(255): warning C4101: 'e': unreferenced local variable
+c:\lwz\learning_lwz\learning\c\ds\线性表\线性单链表动态内存分配\线性单链表动态内存分配\source.cpp(256): warning C4101: 'i': unreferenced local variable
+  线性单链表动态内存分配.vcxproj -> C:\Lwz\learning_lwz\Learning\C\DS\线性表\线性单链表动态内存分配\Debug\线性单链表动态内存分配.exe

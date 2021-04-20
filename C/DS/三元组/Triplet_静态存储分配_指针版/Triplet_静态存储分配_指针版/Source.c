@@ -1,0 +1,101 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include <stdio.h>
+#define OK 1
+#define ERROR 0
+
+typedef int Status;
+typedef float ElemType;
+typedef struct
+{
+	ElemType e[3];
+}Triplet;
+
+//???????
+Status initTriplet(Triplet *T, ElemType v0, ElemType v1, ElemType v2)
+{
+	T->e[0] = v0;
+	T->e[1] = v1;
+	T->e[2] = v2;
+	return OK;
+}
+
+//?????,???????????????????????????????????????????? 
+//?????????????????????????????????????????????
+Status destoryTriplet(Triplet *T)
+{
+	return OK;
+}
+
+//?e??T??i(1~3)?????
+Status getElem(Triplet T, int i, ElemType *e)
+{
+	if (i < 1 || i > 3)
+		return ERROR;
+	else
+		*e = T.e[i - 1];
+	return OK;
+}
+
+//?T??i????e
+Status putElem(Triplet *T, int i, ElemType e)
+{
+	if (i < 1 || i > 3)
+		return ERROR;
+	else
+		T->e[i - 1] = e;
+	return OK;
+}
+
+//??T??????????????1?????0
+Status isAscending(Triplet T)
+{
+	return (T.e[0] <= T.e[1] && T.e[1] <= T.e[2]);
+}
+
+//??T??????????????1?????0
+Status isDescending(Triplet T)
+{
+	return (T.e[0] >= T.e[1] && T.e[1] >= T.e[2]);
+}
+
+//?e????T???????
+ElemType getMax(Triplet T)
+{
+	int i;
+	ElemType e = T.e[0];
+	for (i = 1; i < 3; i++)
+		if (T.e[i] > e)
+			e = T.e[i];
+	return e;
+}
+
+//?e????T???????
+ElemType getMin(Triplet T)
+{
+	int i;
+	ElemType e = T.e[0];
+	for (i = 1; i < 3; i++)
+		if (T.e[i] < e)
+			e = T.e[i];
+	return e;
+}
+
+int main(void)
+{
+	Status flag;
+	ElemType v0, v1, v2, e;
+	Triplet T;
+	printf("input v0, v1, v2:");
+	scanf("%f %f %f", &v0, &v1, &v2);
+	flag = initTriplet(&T, v0, v1, v2);
+	printf("flag = %d, T.e[0] = %4.2f, T.e[1] = %4.2f, T.e[2] = %4.2f\n", flag, T.e[0], T.e[1], T.e[2]);
+	if (getElem(T, 2, &e))
+		printf("T->e[1] = %4.2f\n", e);
+	if (isAscending(T))
+		printf("isAscending\n");
+	if (isDescending(T))
+		printf("isDescending\n");
+	printf("max = %4.2f, min = %4.2f\n", getMax(T), getMin(T));
+	return OK;
+}
